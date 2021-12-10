@@ -1,0 +1,7 @@
+name: Autoannounce
+version: '${project.version}'
+main: teamuni.net.autoannounce.Main
+prefix: [ AutoAnno ]
+authors: [ fadejung ]
+description: auto annopunce (30seconds)
+website: teamuni.net
