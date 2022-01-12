@@ -1,2 +1,3 @@
-Message: "테스트 공지입니다."
-time: 1
+times : 1000 #단위는 밀리초 단위입니다! ex : 1초 = 1000 , 5초 = 5000
+Messages:
+  1: Test Message
