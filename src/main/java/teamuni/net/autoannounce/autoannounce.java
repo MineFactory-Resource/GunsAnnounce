@@ -19,7 +19,7 @@ public final class autoannounce extends JavaPlugin {
             getConfig().options().copyDefaults(true);
             saveConfig();
         }
-        String times = this.getConfig().getString("times");
+        Long times = this.getConfig().getLong("times");
         String msg = this.getConfig().getString("Messages.1");
 
         timerForAnnouncement.schedule(new TimerTask() {
@@ -27,7 +27,7 @@ public final class autoannounce extends JavaPlugin {
             public void run() {
                 getServer().broadcastMessage(msg);
             }
-        }, 5000, Long.parseLong(times));
+        }, 5000, times);
     }
 
     @Override
