@@ -6,6 +6,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class autoannounce extends JavaPlugin {
@@ -33,5 +36,37 @@ public final class autoannounce extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getLogger().info("auto announce Disable. made by fade");
+        saveConfig();
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+        Player player = (Player) sender;
+        if (player.isOp()) {
+            if (args.length == 0)
+                return false;
+            switch (args[0]) {
+                case "times": {
+                    player.sendMessage("시간을 설정하였습니다!");
+                    getConfig().set("times", args[1]);
+                    saveConfig();
+                    break;
+                }
+                case "message": {
+                    player.sendMessage("공지를 설정하였습니다!");
+                    getConfig().set("Messages.1", args[1]);
+                    saveConfig();
+                    break;
+                }
+                default: {
+                    player.sendMessage("/autoannounce times [시간] - 시간을 설정합니다.");
+                    player.sendMessage("/autoannounce message [공지] - 공지를 설정합니다.");
+                    break;
+                }
+            }
+        } else {
+            player.sendMessage("명령어를 사용할 권한이 없습니다!");
+        }
+        return true;
     }
 }
