@@ -2,9 +2,11 @@ package teamuni.net.autoannounce;
 
 
 import java.io.File;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -42,10 +44,12 @@ public final class autoannounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
+        String arg0 = args[0];
+        String arg0lowercase = arg0.toLowerCase();
         if (player.isOp()) {
             if (args.length == 0)
                 return false;
-            switch (args[0]) {
+            switch (arg0lowercase) {
                 case "times": {
                     player.sendMessage("시간을 설정하였습니다!");
                     getConfig().set("times", args[1]);
