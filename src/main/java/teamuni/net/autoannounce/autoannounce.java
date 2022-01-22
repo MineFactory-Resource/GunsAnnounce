@@ -1,39 +1,41 @@
 package teamuni.net.autoannounce;
 
 
-import java.io.File;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.lang.String;
+import java.util.Arrays;
 
-import jdk.javadoc.internal.doclets.toolkit.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public final class autoannounce extends JavaPlugin {
-    Timer timerForAnnouncement = new Timer();
+    BukkitRunnable runnable;
+    String msg;
+    long delay;
 
     public void onEnable() {
         Bukkit.getLogger().info("auto announce Enable. made by fade");
-        saveConfig();
-        File cfile = new File(getDataFolder(), "config.yml");
-        if (cfile.length() == 0) {
-            getConfig().options().copyDefaults(true);
-            saveConfig();
-        }
-        Long times = this.getConfig().getLong("times");
-        String msg = this.getConfig().getString("Messages.1");
+        saveDefaultConfig();
+        delay = this.getConfig().getLong("delay", 1200);
+        msg = this.getConfig().getString("message", "message");
+        updateRunnable();
+    }
 
-        timerForAnnouncement.schedule(new TimerTask() {
+    private void updateRunnable() {
+        if(runnable != null)
+            runnable.cancel();
+        runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                getServer().broadcastMessage(msg);
+                Bukkit.broadcastMessage(msg.replace("\\n", "\n"));
             }
-        }, 5000, times);
+        };
+        runnable.runTaskTimer(this, delay, delay);
     }
+
 
     @Override
     public void onDisable() {
@@ -44,32 +46,37 @@ public final class autoannounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         Player player = (Player) sender;
-        String arg0 = args[0];
-        String arg0lowercase = arg0.toLowerCase();
-        if (player.isOp()) {
-            if (args.length == 0)
-                return false;
-            switch (arg0lowercase) {
-                case "times": {
-                    player.sendMessage("시간을 설정하였습니다!");
-                    getConfig().set("times", args[1]);
-                    saveConfig();
-                    break;
+        if (args.length < 2) return true;
+        String arg0 = args[0].toLowerCase();
+        String arg1 = args[1];
+        switch (arg0) {
+            case "delay": {
+                long i;
+                try {
+                    i = Long.parseLong(arg1);
+                } catch (Exception e) {
+                    sender.sendMessage("잘못된 숫자입니다");
+                    return true;
                 }
-                case "message": {
-                    player.sendMessage("공지를 설정하였습니다!");
-                    getConfig().set("Messages.1", args[1]);
-                    saveConfig();
-                    break;
-                }
-                default: {
-                    player.sendMessage("/autoannounce times [시간] - 시간을 설정합니다.");
-                    player.sendMessage("/autoannounce message [공지] - 공지를 설정합니다.");
-                    break;
-                }
+                getConfig().set("delay", i);
+                saveConfig();
+                delay = i;
+                updateRunnable();
+                player.sendMessage("딜레이를 설정하였습니다!");
+                break;
             }
-        } else {
-            player.sendMessage("명령어를 사용할 권한이 없습니다!");
+            case "message": {
+                String str = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+                getConfig().set("message", str);
+                saveConfig();
+                msg = str;
+                sender.sendMessage("공지를 수정했습니다!");
+            }
+            default: {
+                player.sendMessage("/autoannounce delay [딜레이] - 딜레이를 설정합니다. [20 = 1초]");
+                player.sendMessage("/autoannounce message [공지] - 공지를 수정합니다. [줄바꿈 \n ]");
+                break;
+            }
         }
         return true;
     }
