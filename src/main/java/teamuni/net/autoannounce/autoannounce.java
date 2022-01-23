@@ -32,29 +32,7 @@ public final class autoannounce extends JavaPlugin {
             @Override
             public void run() {
                 String msgSplit = (msg.replace("\\n","\n"));
-                String msgBlack = (msgSplit.replace("&0", ChatColor.BLACK + ""));
-                String msgDarkBlue = (msgBlack.replace("&1", ChatColor.DARK_BLUE + ""));
-                String msgDarkGreen = (msgDarkBlue.replace("&2", ChatColor.DARK_GREEN + ""));
-                String msgDarkAqua = (msgDarkGreen.replace("&3", ChatColor.DARK_AQUA + ""));
-                String msgDarkRed = (msgDarkAqua.replace("&4", ChatColor.DARK_RED + ""));
-                String msgDarkPurple = (msgDarkRed.replace("&5", ChatColor.DARK_PURPLE + ""));
-                String msgGold = (msgDarkPurple.replace("&6", ChatColor.GOLD + ""));
-                String msgGray = (msgGold.replace("&7", ChatColor.GRAY + ""));
-                String msgDarkGray = (msgGray.replace("&8", ChatColor.DARK_GRAY + ""));
-                String msgBlue = (msgDarkGray.replace("&9", ChatColor.BLUE + ""));
-                String msgGreen = (msgBlue.replace("&a", ChatColor.GREEN + ""));
-                String msgAqua = (msgGreen.replace("&b", ChatColor.AQUA + ""));
-                String msgRed = (msgAqua.replace("&c", ChatColor.RED + ""));
-                String msgLightPurple = (msgRed.replace("&d", ChatColor.LIGHT_PURPLE + ""));
-                String msgYellow = (msgLightPurple.replace("&e", ChatColor.YELLOW + ""));
-                String msgWhite = (msgYellow.replace("&f", ChatColor.WHITE + ""));
-                String msgMagic = (msgWhite.replace("&k", ChatColor.MAGIC + ""));
-                String msgBold = (msgMagic.replace("&l", ChatColor.BOLD + ""));
-                String msgStrikeThrough = (msgBold.replace("&m", ChatColor.STRIKETHROUGH + ""));
-                String msgUnderLine = (msgStrikeThrough.replace("&n", ChatColor.UNDERLINE + ""));
-                String msgItalic = (msgUnderLine.replace("&o", ChatColor.ITALIC + ""));
-                String msgReset = (msgItalic.replace("&r", ChatColor.RESET + ""));
-                Bukkit.broadcastMessage(msgReset);
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msgSplit));
             }
         };
         runnable.runTaskTimer(this, delay, delay);
