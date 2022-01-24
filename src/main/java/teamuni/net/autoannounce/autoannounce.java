@@ -5,6 +5,7 @@ import java.lang.String;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,7 +31,8 @@ public final class autoannounce extends JavaPlugin {
         runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                Bukkit.broadcastMessage(msg.replace("\\n", "\n"));
+                String msgSplit = (msg.replace("\\n","\n"));
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msgSplit));
             }
         };
         runnable.runTaskTimer(this, delay, delay);
@@ -74,7 +76,7 @@ public final class autoannounce extends JavaPlugin {
             }
             default: {
                 player.sendMessage("/autoannounce delay [딜레이] - 딜레이를 설정합니다. [20 = 1초]");
-                player.sendMessage("/autoannounce message [공지] - 공지를 수정합니다. [줄바꿈 \n ]");
+                player.sendMessage("/autoannounce message [공지] - 공지를 수정합니다.");
                 break;
             }
         }
