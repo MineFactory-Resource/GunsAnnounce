@@ -57,14 +57,14 @@ public final class autoannounce extends JavaPlugin {
                 try {
                     i = Long.parseLong(arg1);
                 } catch (Exception e) {
-                    sender.sendMessage("잘못된 숫자입니다");
+                    sender.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.RED + "잘못된 숫자입니다!" + ChatColor.RESET);
                     return true;
                 }
                 getConfig().set("delay", i);
                 saveConfig();
                 delay = i;
                 updateRunnable();
-                player.sendMessage("딜레이를 설정하였습니다!");
+                player.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + "딜레이를 설정했습니다!" + ChatColor.RESET);
                 break;
             }
             case "message": {
@@ -72,11 +72,11 @@ public final class autoannounce extends JavaPlugin {
                 getConfig().set("message", str);
                 saveConfig();
                 msg = str;
-                sender.sendMessage("공지를 수정했습니다!");
+                sender.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + "공지를 수정했습니다!" + ChatColor.RESET);
             }
             default: {
-                player.sendMessage("/autoannounce delay [딜레이] - 딜레이를 설정합니다. [20 = 1초]");
-                player.sendMessage("/autoannounce message [공지] - 공지를 수정합니다.");
+                player.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + "/autoannounce delay [딜레이]" + ChatColor.GRAY + "- 딜레이를 설정합니다. [20 = 1초]" + ChatColor.RESET);
+                player.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + "/autoannounce message [공지]" + ChatColor.GRAY + "- 공지를 수정합니다." + ChatColor.RESET);
                 break;
             }
         }
