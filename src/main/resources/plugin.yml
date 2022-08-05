@@ -2,3 +2,9 @@ name: autoannounce
 version: '${project.version}'
 api-version: 1.18
 main: teamuni.net.autoannounce.autoannounce
+commands:
+  autoannounce:
+    permission: autoannounce.reload
+permissions:
+  autoannounce.reload:
+    default: op
