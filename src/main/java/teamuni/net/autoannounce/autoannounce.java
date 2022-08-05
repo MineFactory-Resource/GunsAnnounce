@@ -2,7 +2,9 @@ package teamuni.net.autoannounce;
 
 
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,6 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 public final class autoannounce extends JavaPlugin {
     BukkitRunnable runnable;
     String msg;
+    ArrayList<String> tipList;
+    Random random;
     long delay;
     long period;
 
@@ -26,17 +30,19 @@ public final class autoannounce extends JavaPlugin {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        tipList = new ArrayList<>(getConfig().getStringList("Messages"));
+        random = new Random();
         updateRunnable();
     }
 
     private void updateRunnable() {
-        if(runnable != null)
+        if (runnable != null)
             runnable.cancel();
         runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                String msgSplit = (msg.replace("\\n","\n"));
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msgSplit));
+                int randomNumber = random.nextInt(tipList.size());
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(randomNumber)));
             }
         };
         runnable.runTaskTimer(this, delay, period);
