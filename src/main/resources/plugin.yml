@@ -1,3 +1,4 @@
 name: autoannounce
 version: '${project.version}'
+api-version: 1.18
 main: teamuni.net.autoannounce.autoannounce
