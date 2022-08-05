@@ -16,11 +16,16 @@ public final class autoannounce extends JavaPlugin {
     BukkitRunnable runnable;
     String msg;
     long delay;
+    long period;
 
     public void onEnable() {
         saveDefaultConfig();
-        delay = this.getConfig().getLong("delay", 1200);
-        msg = this.getConfig().getString("message", "message");
+        try {
+            delay = this.getConfig().getLong("delay");
+            period = this.getConfig().getLong("period");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         updateRunnable();
     }
 
@@ -34,7 +39,7 @@ public final class autoannounce extends JavaPlugin {
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msgSplit));
             }
         };
-        runnable.runTaskTimer(this, delay, delay);
+        runnable.runTaskTimer(this, delay, period);
     }
 
 

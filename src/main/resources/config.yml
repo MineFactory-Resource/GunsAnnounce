@@ -1,3 +1,4 @@
-times : 1000 #단위는 tick 단위 입니다. ex: 20 = 1초, 1200 = 60초(1분)
+delay: 200 #단위는 tick 단위 입니다. ex: 20 = 1초, 1200 = 60초(1분)
+period: 200
 Messages:
   1: Test Message
