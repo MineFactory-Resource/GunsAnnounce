@@ -18,7 +18,6 @@ public final class autoannounce extends JavaPlugin {
     long delay;
 
     public void onEnable() {
-        Bukkit.getLogger().info("auto announce Enable. made by fade");
         saveDefaultConfig();
         delay = this.getConfig().getLong("delay", 1200);
         msg = this.getConfig().getString("message", "message");
@@ -41,7 +40,6 @@ public final class autoannounce extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("auto announce Disable. made by fade");
         saveConfig();
     }
 
