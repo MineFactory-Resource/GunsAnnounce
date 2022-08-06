@@ -2,56 +2,79 @@ package teamuni.net.autoannounce;
 
 
 import java.lang.String;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public final class autoannounce extends JavaPlugin {
     BukkitRunnable runnable;
     String msg;
+    ArrayList<String> tipList;
+    Random random;
     long delay;
+    long period;
 
     public void onEnable() {
-        Bukkit.getLogger().info("auto announce Enable. made by fade");
         saveDefaultConfig();
-        delay = this.getConfig().getLong("delay", 1200);
-        msg = this.getConfig().getString("message", "message");
+        try {
+            delay = this.getConfig().getLong("delay");
+            period = this.getConfig().getLong("period");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        tipList = new ArrayList<>(getConfig().getStringList("Messages"));
+        random = new Random();
         updateRunnable();
+        getCommand("autoannounce").setTabCompleter(new CommandTabCompleter());
     }
 
     private void updateRunnable() {
-        if(runnable != null)
+        if (runnable != null)
             runnable.cancel();
         runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                String msgSplit = (msg.replace("\\n","\n"));
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', msgSplit));
+                int randomNumber = random.nextInt(tipList.size());
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(randomNumber)));
             }
         };
-        runnable.runTaskTimer(this, delay, delay);
+        runnable.runTaskTimer(this, delay, period);
     }
 
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info("auto announce Disable. made by fade");
         saveConfig();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        Player player = (Player) sender;
-        if (args.length < 2) {
+        if (command.getName().equalsIgnoreCase("autoannounce")) {
+            if (args[0].equalsIgnoreCase("reload") && sender.hasPermission("autoannounce.reload")) {
+                reloadConfig();
+                saveConfig();
+                try {
+                    delay = getConfig().getLong("delay");
+                    period = getConfig().getLong("period");
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
+                }
+                tipList = new ArrayList<>(getConfig().getStringList("Messages"));
+                sender.sendMessage(ChatColor.GREEN + "Autoannounce has been reloaded!");
+            }
+            return true;
+        }
+        if (args.length == 1) {
             sender.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + " /autoannounce delay [딜레이]" + ChatColor.GRAY + " - 딜레이를 설정합니다. [20 = 1초]");
             sender.sendMessage(ChatColor.BLUE + "[" + ChatColor.WHITE + " AutoAnnounce " + ChatColor.BLUE + "]" + ChatColor.GOLD + " /autoannounce message [공지]" + ChatColor.GRAY + " - 공지를 수정합니다.");
-            return true;
+            return false;
         }
         String arg0 = args[0].toLowerCase();
         String arg1 = args[1];
