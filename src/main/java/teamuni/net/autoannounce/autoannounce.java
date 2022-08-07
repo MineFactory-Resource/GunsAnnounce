@@ -67,6 +67,7 @@ public final class autoannounce extends JavaPlugin {
                     e.printStackTrace();
                 }
                 tipList = new ArrayList<>(getConfig().getStringList("Messages"));
+                updateRunnable();
                 sender.sendMessage(ChatColor.GREEN + "Autoannounce has been reloaded!");
             }
             return true;
