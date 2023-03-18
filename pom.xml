@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>teamuni.net</groupId>
-    <artifactId>Autoannounce</artifactId>
-    <version>0.1.1</version>
+    <artifactId>AutoAnnounce</artifactId>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
-    <name>Autoannounce</name>
+    <name>AutoAnnounce</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
