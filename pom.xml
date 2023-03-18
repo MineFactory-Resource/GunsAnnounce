@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>teamuni.net</groupId>
-    <artifactId>Autoannounce</artifactId>
-    <version>0.1.1</version>
+    <groupId>net.teamuni</groupId>
+    <artifactId>AutoAnnounce</artifactId>
+    <version>0.1.2</version>
     <packaging>jar</packaging>
 
-    <name>Autoannounce</name>
+    <name>AutoAnnounce</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

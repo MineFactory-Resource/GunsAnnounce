@@ -1,4 +1,4 @@
-package teamuni.net.autoannounce;
+package net.teamuni.autoannounce;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,11 +9,12 @@ import java.util.List;
 
 public class CommandTabCompleter implements TabCompleter {
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (command.getName().equalsIgnoreCase("autoannounce")) {
+    public List<String> onTabComplete(CommandSender sender, Command command, String s, String[] args) {
+        if (command.getName().equalsIgnoreCase("autoannounce") && sender.hasPermission("autoannounce.manage")) {
             List<String> tabCompleteList = new ArrayList<>();
-            if (strings.length == 1) {
+            if (args.length == 1) {
                 tabCompleteList.add("reload");
+                tabCompleteList.add("period");
             }
             return tabCompleteList;
         }

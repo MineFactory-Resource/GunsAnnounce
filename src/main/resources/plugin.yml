@@ -1,10 +1,10 @@
-name: Autoannounce
+name: AutoAnnounce
 version: '${project.version}'
 api-version: 1.18
-main: teamuni.net.autoannounce.autoannounce
+main: net.teamuni.autoannounce.AutoAnnounce
 commands:
   autoannounce:
-    permission: autoannounce.reload
+    permission: autoannounce.manage
 permissions:
-  autoannounce.reload:
+  autoannounce.manage:
     default: op
