@@ -13,12 +13,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public final class AutoAnnounce extends JavaPlugin {
     private MessageManager messageManager;
     private boolean isUseRandom;
     private long delay;
     private long period;
+    private int taskID = 0;
     private int num = 0;
     private final Map<String, List<String>> messageMap = new HashMap<>();
 
@@ -41,13 +43,17 @@ public final class AutoAnnounce extends JavaPlugin {
             return;
         }
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+        if (this.taskID != 0) {
+            Bukkit.getScheduler().cancelTask(this.taskID);
+        }
+
+        this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
             if (this.isUseRandom) {
                 Random random = new Random();
                 int randomNumber = random.nextInt(tipList.size());
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(randomNumber)));
             } else {
-                if (this.num == tipList.size() - 1) {
+                if (this.num == tipList.size()) {
                     this.num = 0;
                 }
                 Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(this.num)));
@@ -69,6 +75,11 @@ public final class AutoAnnounce extends JavaPlugin {
                 if (args.length > 0) {
                     switch (args[0]) {
                         case "reload" -> {
+                            if (args.length != 1) {
+                                this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
+                                return false;
+                            }
+
                             reloadConfig();
                             this.delay = getConfig().getLong("delay");
                             this.period = getConfig().getLong("period");
@@ -76,17 +87,25 @@ public final class AutoAnnounce extends JavaPlugin {
                             this.messageManager.reload();
                             this.messageMap.putAll(this.messageManager.getMessages());
                             this.messageManager.sendTranslatedMessage(player, this.messageMap.get("reload_message"));
+                            registerTask();
                         }
                         case "period" -> {
+                            if (args.length != 2) {
+                                this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
+                                return false;
+                            }
+
                             if (!args[1].matches("[0-9]+")) {
                                 this.messageManager.sendTranslatedMessage(player, this.messageMap.get("syntax_error_message"));
                                 return false;
                             }
+
                             long i = Long.parseLong(args[1]);
-                            getConfig().set("period", i);
-                            saveConfig();
                             this.period = i;
                             this.messageManager.sendTranslatedMessage(player, this.messageMap.get("set_period_message"));
+                            getConfig().set("period", i);
+                            saveConfig();
+                            registerTask();
                         }
                         default -> this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
                     }
