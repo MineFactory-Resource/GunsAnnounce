@@ -1,4 +1,4 @@
-package teamuni.net.autoannounce;
+package net.teamuni.autoannounce;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

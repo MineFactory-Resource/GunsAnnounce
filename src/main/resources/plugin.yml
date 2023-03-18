@@ -1,7 +1,7 @@
 name: AutoAnnounce
 version: '${project.version}'
 api-version: 1.18
-main: teamuni.net.autoannounce.AutoAnnounce
+main: net.teamuni.autoannounce.AutoAnnounce
 commands:
   autoannounce:
     permission: autoannounce.manage

@@ -1,4 +1,4 @@
-package teamuni.net.autoannounce;
+package net.teamuni.autoannounce;
 
 
 import java.lang.String;
