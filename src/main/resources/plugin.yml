@@ -4,7 +4,7 @@ api-version: 1.18
 main: teamuni.net.autoannounce.AutoAnnounce
 commands:
   autoannounce:
-    permission: autoannounce.reload
+    permission: autoannounce.manage
 permissions:
-  autoannounce.reload:
+  autoannounce.manage:
     default: op

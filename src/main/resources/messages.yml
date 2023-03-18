@@ -7,8 +7,10 @@ guide_message:
   - "&f/autoannounce &6period [tick] &f- 메시지 출력 시간 간격을 [tick]으로 설정합니다."
   - "&f/autoannounce &6relaod &f- 플러그인을 리로드합니다."
   - ""
+not_available_command:
+  - "e[&fAutoAnnounce&e] &f알 수 없는 명령어입니다."
 set_period_message:
-  - "&e[&fAutoAnnounce&e] 메시지 출력 시간 간격을 업데이트했습니다."
+  - "&e[&fAutoAnnounce&e] &f메시지 출력 시간 간격을 업데이트했습니다."
 syntax_error_message:
   - "&e[&fAutoAnnounce&e] &f정수가 입력되어야 합니다."
 announce_messages:
