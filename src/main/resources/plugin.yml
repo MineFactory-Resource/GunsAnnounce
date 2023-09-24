@@ -1,10 +1,10 @@
-name: AutoAnnounce
+name: GunsAnnounce
 version: '${project.version}'
 api-version: 1.18
-main: net.teamuni.autoannounce.AutoAnnounce
+main: net.teamuni.gunsannounce.GunsAnnounce
 commands:
-  autoannounce:
-    permission: autoannounce.manage
+  gunsannounce:
+    permission: gunsannounce.manage
 permissions:
-  autoannounce.manage:
+  gunsannounce.manage:
     default: op

@@ -1,4 +1,4 @@
-Autoannounce 
+GunsAnnounce 
 =============
 플러그인 소개
 -------------

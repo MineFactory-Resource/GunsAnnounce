@@ -1,4 +1,4 @@
-package net.teamuni.autoannounce;
+package net.teamuni.gunsannounce;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MessageManager {
-    private final AutoAnnounce instance;
+    private final GunsAnnounce instance;
     private File file = null;
     private FileConfiguration messagesFile = null;
 
-    public MessageManager(AutoAnnounce instance) {
+    public MessageManager(GunsAnnounce instance) {
         this.instance = instance;
     }
 

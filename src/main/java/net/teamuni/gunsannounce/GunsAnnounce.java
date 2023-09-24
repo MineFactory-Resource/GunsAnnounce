@@ -1,4 +1,4 @@
-package net.teamuni.autoannounce;
+package net.teamuni.gunsannounce;
 
 import java.lang.String;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class AutoAnnounce extends JavaPlugin {
+public final class GunsAnnounce extends JavaPlugin {
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 
     private MessageManager messageManager;
@@ -36,7 +36,7 @@ public final class AutoAnnounce extends JavaPlugin {
         this.messageMap.putAll(this.messageManager.getMessages());
         this.isUseRandom = getConfig().getBoolean("print_random");
         registerTask();
-        getCommand("autoannounce").setTabCompleter(new CommandTabCompleter());
+        getCommand("gunsannounce").setTabCompleter(new CommandTabCompleter());
     }
 
     private void registerTask() {
@@ -75,7 +75,7 @@ public final class AutoAnnounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (sender instanceof Player player) {
-            if (command.getName().equalsIgnoreCase("autoannounce") && player.hasPermission("autoannounce.manage")) {
+            if (command.getName().equalsIgnoreCase("gunsannounce") && player.hasPermission("gunsannounce.manage")) {
                 if (args.length > 0) {
                     switch (args[0]) {
                         case "reload" -> {
