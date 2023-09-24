@@ -61,6 +61,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>guns-api</id>
+            <url>file://${project.basedir}/[libs/GunsAPI-0.2.1.jar]</url>
+        </repository>
     </repositories>
 
     <dependencies>
