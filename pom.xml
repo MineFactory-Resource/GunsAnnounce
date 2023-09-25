@@ -61,10 +61,6 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>guns-api</id>
-            <url>file://${project.basedir}/[libs/GunsAPI-0.2.1.jar]</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -73,6 +69,13 @@
             <artifactId>spigot-api</artifactId>
             <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>GunsAPI</groupId>
+            <artifactId>guns-api</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/GunsAPI-0.2.1.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
