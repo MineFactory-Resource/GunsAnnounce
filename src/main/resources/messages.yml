@@ -1,11 +1,11 @@
 reload_message:
-  - "&aAutoAnnounce has been reloaded!"
+  - "&aGunsAnnounce has been reloaded!"
 guide_message:
   - ""
   - "&a[자동 공지 도움말]"
   - ""
-  - "&f/autoannounce &6period [tick] &f- 메시지 출력 시간 간격을 [tick]으로 설정합니다."
-  - "&f/autoannounce &6relaod &f- 플러그인을 리로드합니다."
+  - "&f/gunsannounce &6period [tick] &f- 메시지 출력 시간 간격을 [tick]으로 설정합니다."
+  - "&f/gunsannounce &6relaod &f- 플러그인을 리로드합니다."
   - ""
 not_available_command:
   - "&e[알림] &f알 수 없는 명령어입니다."

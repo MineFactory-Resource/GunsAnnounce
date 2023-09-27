@@ -1,21 +1,24 @@
-package net.teamuni.autoannounce;
-
+package net.teamuni.gunsannounce;
 
 import java.lang.String;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import net.teamuni.gunscore.api.GunsAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public final class AutoAnnounce extends JavaPlugin {
+public final class GunsAnnounce extends JavaPlugin {
+    private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
+
     private MessageManager messageManager;
     private boolean isUseRandom;
     private long delay;
@@ -33,7 +36,7 @@ public final class AutoAnnounce extends JavaPlugin {
         this.messageMap.putAll(this.messageManager.getMessages());
         this.isUseRandom = getConfig().getBoolean("print_random");
         registerTask();
-        getCommand("autoannounce").setTabCompleter(new CommandTabCompleter());
+        getCommand("gunsannounce").setTabCompleter(new CommandTabCompleter());
     }
 
     private void registerTask() {
@@ -48,15 +51,16 @@ public final class AutoAnnounce extends JavaPlugin {
         }
 
         this.taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            Set<Player> players = Bukkit.getOnlinePlayers().stream().filter(player -> GunsAPI.getGame(player) == null).collect(
+                Collectors.toSet());
             if (this.isUseRandom) {
-                Random random = new Random();
-                int randomNumber = random.nextInt(tipList.size());
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(randomNumber)));
+                int randomNumber = RANDOM.nextInt(tipList.size());
+                players.forEach(player -> player.sendMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(randomNumber))));
             } else {
                 if (this.num == tipList.size()) {
                     this.num = 0;
                 }
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(this.num)));
+                players.forEach(player -> player.sendMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(this.num))));
                 this.num++;
             }
         }, delay, period);
@@ -71,7 +75,7 @@ public final class AutoAnnounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (sender instanceof Player player) {
-            if (command.getName().equalsIgnoreCase("autoannounce") && player.hasPermission("autoannounce.manage")) {
+            if (command.getName().equalsIgnoreCase("gunsannounce") && player.hasPermission("gunsannounce.manage")) {
                 if (args.length > 0) {
                     switch (args[0]) {
                         case "reload" -> {

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.teamuni</groupId>
-    <artifactId>AutoAnnounce</artifactId>
+    <artifactId>GunsAnnounce</artifactId>
     <version>0.1.2</version>
     <packaging>jar</packaging>
 
-    <name>AutoAnnounce</name>
+    <name>GunsAnnounce</name>
 
     <properties>
         <java.version>17</java.version>
@@ -69,6 +69,13 @@
             <artifactId>spigot-api</artifactId>
             <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>GunsAPI</groupId>
+            <artifactId>guns-api</artifactId>
+            <version>2.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/GunsAPI-0.2.1.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
