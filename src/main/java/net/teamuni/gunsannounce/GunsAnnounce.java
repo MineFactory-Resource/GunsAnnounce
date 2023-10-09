@@ -36,7 +36,7 @@ public final class GunsAnnounce extends JavaPlugin {
         this.messageMap.putAll(this.messageManager.getMessages());
         this.isUseRandom = getConfig().getBoolean("print_random");
         registerTask();
-        getCommand("gunsannounce").setTabCompleter(new CommandTabCompleter());
+        getCommand("공지").setTabCompleter(new CommandTabCompleter());
     }
 
     private void registerTask() {
@@ -75,7 +75,7 @@ public final class GunsAnnounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (sender instanceof Player player) {
-            if (command.getName().equalsIgnoreCase("gunsannounce") && player.hasPermission("gunsannounce.manage")) {
+            if (command.getName().equalsIgnoreCase("공지") && player.hasPermission("gunsannounce.manage")) {
                 if (args.length > 0) {
                     switch (args[0]) {
                         case "reload" -> {
