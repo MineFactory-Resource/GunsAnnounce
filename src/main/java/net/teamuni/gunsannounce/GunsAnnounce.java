@@ -21,7 +21,6 @@ public final class GunsAnnounce extends JavaPlugin {
 
     private MessageManager messageManager;
     private boolean isUseRandom;
-    private long delay;
     private long period;
     private int taskID = 0;
     private int num = 0;
@@ -31,7 +30,6 @@ public final class GunsAnnounce extends JavaPlugin {
         saveDefaultConfig();
         this.messageManager = new MessageManager(this);
         this.messageManager.createMessagesYml();
-        this.delay = getConfig().getLong("delay");
         this.period = getConfig().getLong("period");
         this.messageMap.putAll(this.messageManager.getMessages());
         this.isUseRandom = getConfig().getBoolean("print_random");
@@ -63,7 +61,7 @@ public final class GunsAnnounce extends JavaPlugin {
                 players.forEach(player -> player.sendMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(this.num))));
                 this.num++;
             }
-        }, delay, period);
+        }, 0L, period);
     }
 
 
@@ -85,7 +83,6 @@ public final class GunsAnnounce extends JavaPlugin {
                             }
 
                             reloadConfig();
-                            this.delay = getConfig().getLong("delay");
                             this.period = getConfig().getLong("period");
                             this.isUseRandom = getConfig().getBoolean("print_random");
                             this.messageManager.reload();
