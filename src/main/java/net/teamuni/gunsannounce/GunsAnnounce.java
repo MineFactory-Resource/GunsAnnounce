@@ -76,7 +76,7 @@ public final class GunsAnnounce extends JavaPlugin {
             if (command.getName().equalsIgnoreCase("공지") && player.hasPermission("gunsannounce.manage")) {
                 if (args.length > 0) {
                     switch (args[0]) {
-                        case "reload" -> {
+                        case "리로드","reload" -> {
                             if (args.length != 1) {
                                 this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
                                 return false;
@@ -90,7 +90,7 @@ public final class GunsAnnounce extends JavaPlugin {
                             this.messageManager.sendTranslatedMessage(player, this.messageMap.get("reload_message"));
                             registerTask();
                         }
-                        case "period" -> {
+                        case "주기","period" -> {
                             if (args.length != 2) {
                                 this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
                                 return false;

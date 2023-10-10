@@ -13,8 +13,8 @@ public class CommandTabCompleter implements TabCompleter {
         if (command.getName().equalsIgnoreCase("공지") && sender.hasPermission("gunsannounce.manage")) {
             List<String> tabCompleteList = new ArrayList<>();
             if (args.length == 1) {
-                tabCompleteList.add("reload");
-                tabCompleteList.add("period");
+                tabCompleteList.add("리로드");
+                tabCompleteList.add("주기");
             }
             return tabCompleteList;
         }
