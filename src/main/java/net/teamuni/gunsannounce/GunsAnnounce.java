@@ -21,7 +21,6 @@ public final class GunsAnnounce extends JavaPlugin {
 
     private MessageManager messageManager;
     private boolean isUseRandom;
-    private long delay;
     private long period;
     private int taskID = 0;
     private int num = 0;
@@ -31,12 +30,11 @@ public final class GunsAnnounce extends JavaPlugin {
         saveDefaultConfig();
         this.messageManager = new MessageManager(this);
         this.messageManager.createMessagesYml();
-        this.delay = getConfig().getLong("delay");
         this.period = getConfig().getLong("period");
         this.messageMap.putAll(this.messageManager.getMessages());
         this.isUseRandom = getConfig().getBoolean("print_random");
         registerTask();
-        getCommand("gunsannounce").setTabCompleter(new CommandTabCompleter());
+        getCommand("공지").setTabCompleter(new CommandTabCompleter());
     }
 
     private void registerTask() {
@@ -63,7 +61,7 @@ public final class GunsAnnounce extends JavaPlugin {
                 players.forEach(player -> player.sendMessage(ChatColor.translateAlternateColorCodes('&', tipList.get(this.num))));
                 this.num++;
             }
-        }, delay, period);
+        }, 0L, period);
     }
 
 
@@ -75,17 +73,16 @@ public final class GunsAnnounce extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         if (sender instanceof Player player) {
-            if (command.getName().equalsIgnoreCase("gunsannounce") && player.hasPermission("gunsannounce.manage")) {
+            if (command.getName().equalsIgnoreCase("공지") && player.hasPermission("gunsannounce.manage")) {
                 if (args.length > 0) {
                     switch (args[0]) {
-                        case "reload" -> {
+                        case "리로드","reload" -> {
                             if (args.length != 1) {
                                 this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
                                 return false;
                             }
 
                             reloadConfig();
-                            this.delay = getConfig().getLong("delay");
                             this.period = getConfig().getLong("period");
                             this.isUseRandom = getConfig().getBoolean("print_random");
                             this.messageManager.reload();
@@ -93,7 +90,7 @@ public final class GunsAnnounce extends JavaPlugin {
                             this.messageManager.sendTranslatedMessage(player, this.messageMap.get("reload_message"));
                             registerTask();
                         }
-                        case "period" -> {
+                        case "주기","period" -> {
                             if (args.length != 2) {
                                 this.messageManager.sendTranslatedMessage(player, this.messageMap.get("not_available_command"));
                                 return false;
